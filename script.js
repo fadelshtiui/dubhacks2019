@@ -5,13 +5,28 @@
      window.onload = function() {
           $("analyze").onclick = function() {
                let text = $("input").innerText.trim();
+               analyzeHTML(text);
+               /*
                if ($("css").checked) {
-                    analyzeCSS(text)
+                    analyzeCSS(text);
                }
-
+               */
           };
      };
 
+     // returns an array with the following format:
+     // [(true|false), (true|false), (true|false), (true|false), (true|false), (true|false),
+     // (true|false), (true|false), (true|false), (1|2|3|4|5)]
+     // The indices in the array correspond to:
+     // 0 -> true if the given HTML text uses deprecated tags
+     // 1 -> true if the given HTML text is missing descriptive headers
+     // 2 -> true if the given HTML text doesn't use HTML5 semantic tags
+     // 3 -> true if any img tags are missing an alt attribute
+     // 4 -> true if html tag is missing a lang attribute
+     // 5 -> true if the website has moving text
+     // 6 -> true if the given HTML text missing labels
+     // 7 -> true if the given HTML text is missing captions
+     // 8 -> true if the given HTML is missing a title tag
      function analyzeHTML(text) {
 
           // str.match(/ain/g) -> returns an array of occurrences of "ain" in str
@@ -114,7 +129,6 @@
           }
 
           errorsArray.push(missingTitle);
-
      }
 
      function missingAttribute(element, attribute, text) {
